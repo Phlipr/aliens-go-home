@@ -2,11 +2,12 @@ import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Canvas from './components/Canvas';
 
-import { selectAngle, moveObject } from './features/position/positionSlice';
+import { selectAngle, moveObject, startGame, selectGameState } from './features/game/gameSlice';
 import { getCanvasPosition } from './utils/formulas';
 
 const App = () => {
   const angle = Number(useSelector(selectAngle));
+  const gameState = useSelector(selectGameState);
   const dispatch = useDispatch();
   let canvasMousePosition = useRef();
 
@@ -34,6 +35,8 @@ const App = () => {
       <Canvas
         angle={angle}
         trackMouse={event => trackMouse(event)}
+        gameState={gameState}
+        startGame={() => dispatch(startGame())}
       />
     </div>
   );
